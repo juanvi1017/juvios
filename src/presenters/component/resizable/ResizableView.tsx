@@ -35,14 +35,13 @@ const ResizableIframe = ({ isResizingDown,
     const [size, setSize] = useState({ width: 500, height: 500 });
     const [position, setPosition] = useState({ x: 400, y: 80 });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleDragStart = (e: any) => {
+
+    const handleDragStart = (e: React.MouseEvent) => {
         e.preventDefault();
         setDragStart({ x: e.clientX, y: e.clientY });
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleDrag = (e: any) => {
+    const handleDrag = (e: React.MouseEvent) => {
         if (dragStart) {
             const dx = e.clientX - dragStart.x;
             const dy = e.clientY - dragStart.y;
@@ -69,22 +68,20 @@ const ResizableIframe = ({ isResizingDown,
         }
     };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleResizeDown = (e: any) => {
+
+    const handleResizeDown = (e: React.MouseEvent) => {
         e.preventDefault();
         setIsResizingDown(true);
         setIsResizingRight(false);
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleResizeRight = (e: any) => {
+    const handleResizeRight = (e: React.MouseEvent) => {
         e.preventDefault();
         setIsResizingDown(false);
         setIsResizingRight(true);
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleResize = (e: any) => {
+    const handleResize = (e: React.MouseEvent) => {
         if (isResizingDown) {
             const newHeight = Math.max(150, e.clientY - position.y);
             setSize({
