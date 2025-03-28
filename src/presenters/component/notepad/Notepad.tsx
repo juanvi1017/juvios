@@ -31,6 +31,7 @@ const Notepad = () => {
     }
 
     const addNote = () => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let valueNotes: any[] = []
         if (currentNote.trim() === "") return;
         const newNote = { id: Date.now(), content: currentNote };
@@ -41,6 +42,7 @@ const Notepad = () => {
     };
 
     const deleteNote = (id: number) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let valueNotes: any[] = []
         setNotes(notes.filter((note) => note.id !== id));
         valueNotes = notes.filter((note) => note.id !== id)
@@ -48,6 +50,7 @@ const Notepad = () => {
     };
 
     const updateNote = (id: number, newContent: string) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let valueNotes: any[] = []
         setNotes(
             notes.map((note) =>

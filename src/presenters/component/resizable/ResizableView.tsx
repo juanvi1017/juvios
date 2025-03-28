@@ -9,9 +9,13 @@ interface Props {
     setIsResizingRight: (arg0: boolean) => void;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dragStart: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setDragStart: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     end: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     close: any;
     title: string;
 }
