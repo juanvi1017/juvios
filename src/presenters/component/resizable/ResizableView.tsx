@@ -20,6 +20,11 @@ interface Props {
     title: string;
 }
 
+let min = 10;
+let max = 700;
+let minh = 80;
+let maxh = 200;
+
 const ResizableIframe = ({ isResizingDown,
     setIsResizingDown,
     isResizingRight,
@@ -33,7 +38,7 @@ const ResizableIframe = ({ isResizingDown,
 }: Props) => {
 
     const [size, setSize] = useState({ width: 500, height: 500 });
-    const [position, setPosition] = useState({ x: 400, y: 80 });
+    const [position, setPosition] = useState({ x: (Math.floor(Math.random() * (max - min + 1)) + min), y: (Math.floor(Math.random() * (maxh - minh + 1)) + minh) });
 
 
     const handleDragStart = (e: React.MouseEvent) => {

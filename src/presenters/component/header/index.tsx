@@ -28,7 +28,7 @@ const Header = ({setDev}: {setDev:(arg0: boolean) => void}) => {
 
             {/* Opciones del menú con transición */}
             <div
-              className={`absolute mt-2 min-h-50 w-200 shadow-lg bg-white ring-1 ring-black ring-opacity-5 transform transition-all duration-300 ease-in-out ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"
+              className={`min-w-80 absolute mt-2 min-h-50 md:w-200 shadow-lg bg-white ring-1 ring-black ring-opacity-5 transform transition-all duration-300 ease-in-out ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"
                 }`}
             >
               <div className="p-2 lg:p-8" style={{padding: '15px 0px 0px 10px'}}>

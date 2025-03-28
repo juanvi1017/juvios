@@ -37,7 +37,7 @@ export default function Home() {
             style={{ height: 'calc(100vh - 40px)', maxHeight: 'calc(100vh - 40px)' }}
             onClick={() => end()}
         >
-            <div className="grid grid-cols-4 gap-4" >
+            <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4" >
                 <div className="grid grid-cols-3 gap-4" style={{ marginTop: '50px', marginLeft: '10px' }}>
                     <div
                         className="h-20 flex flex-col items-center justify-center"
