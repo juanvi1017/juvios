@@ -20,10 +20,10 @@ interface Props {
     title: string;
 }
 
-let min = 10;
-let max = 700;
-let minh = 80;
-let maxh = 200;
+const min = 10;
+const max = 700;
+const minh = 80;
+const maxh = 200;
 
 const ResizableIframe = ({ isResizingDown,
     setIsResizingDown,
