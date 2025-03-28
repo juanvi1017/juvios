@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background-dark: rgb(44, 44, 44);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 @theme inline {
@@ -14,13 +23,31 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background-dark: var(--background-dark);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.dark {
+  background-color: var(--background-dark);
+}
+
+.background {
+  width: 100%;
+  background-size: cover;
+  /* Ajusta la imagen para cubrir toda la pantalla */
+  background-attachment: fixed;
+  /* Mantiene la imagen fija al hacer scroll */
+  background-position: center;
+  /* Centra la imagen en la pantalla */
+  background-repeat: no-repeat;
+  /* Evita que la imagen se repita */
+  background-image: url('https://i.blogs.es/88e43c/captura-de-pantalla-2021-10-20-a-las-9.39.51/1366_2000.jpg');
+}
+
+.title {
+  margin-left: 20px !important;
 }
