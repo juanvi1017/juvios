@@ -21,6 +21,7 @@ const Notepad = () => {
         }
     }, []);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const saveLocal = (value: any) => {
         try {
             localStorage.setItem("notes", JSON.stringify(value)); // Guarda las notas como string
@@ -30,7 +31,7 @@ const Notepad = () => {
     }
 
     const addNote = () => {
-        let valueNotes: any = []
+        let valueNotes: any[] = []
         if (currentNote.trim() === "") return;
         const newNote = { id: Date.now(), content: currentNote };
         setNotes([...notes, newNote]);
@@ -40,14 +41,14 @@ const Notepad = () => {
     };
 
     const deleteNote = (id: number) => {
-        let valueNotes: any = []
+        let valueNotes: any[] = []
         setNotes(notes.filter((note) => note.id !== id));
         valueNotes = notes.filter((note) => note.id !== id)
         saveLocal(valueNotes)
     };
 
     const updateNote = (id: number, newContent: string) => {
-        let valueNotes: any = []
+        let valueNotes: any[] = []
         setNotes(
             notes.map((note) =>
                 note.id === id ? { ...note, content: newContent } : note

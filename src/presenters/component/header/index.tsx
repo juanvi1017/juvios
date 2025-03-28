@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Header = ({setDev}: {setDev:any}) => {
+const Header = ({setDev}: {setDev:(arg0: boolean) => void}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {

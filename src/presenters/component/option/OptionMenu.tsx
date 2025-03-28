@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 import Resizable from '@/presenters/component/resizable/ResizableView';
 
@@ -9,6 +9,7 @@ interface Props {
     setIsResizingDown: (arg0: boolean) => void;
     isResizingRight: boolean;
     setIsResizingRight: (arg0: boolean) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dragStart: any;
     setDragStart: any;
     end: any;

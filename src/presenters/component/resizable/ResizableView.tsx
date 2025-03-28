@@ -7,6 +7,7 @@ interface Props {
     setIsResizingDown: (arg0: boolean) => void;
     isResizingRight: boolean;
     setIsResizingRight: (arg0: boolean) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dragStart: any;
     setDragStart: any;
     end: any;
@@ -30,11 +31,13 @@ const ResizableIframe = ({ isResizingDown,
     const [size, setSize] = useState({ width: 500, height: 500 });
     const [position, setPosition] = useState({ x: 400, y: 80 });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleDragStart = (e: any) => {
         e.preventDefault();
         setDragStart({ x: e.clientX, y: e.clientY });
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleDrag = (e: any) => {
         if (dragStart) {
             const dx = e.clientX - dragStart.x;
@@ -62,19 +65,21 @@ const ResizableIframe = ({ isResizingDown,
         }
     };
 
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleResizeDown = (e: any) => {
         e.preventDefault();
         setIsResizingDown(true);
         setIsResizingRight(false);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleResizeRight = (e: any) => {
         e.preventDefault();
         setIsResizingDown(false);
         setIsResizingRight(true);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleResize = (e: any) => {
         if (isResizingDown) {
             const newHeight = Math.max(150, e.clientY - position.y);
