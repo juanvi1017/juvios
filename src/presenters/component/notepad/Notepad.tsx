@@ -48,7 +48,7 @@ const Notepad = () => {
 
     const updateNote = (id: number, newContent: string) => {
         let valueNotes: Note[] = []
-        let notesAux: Note[] = [...notes]
+        const notesAux: Note[] = [...notes]
         setNotes(
             notes.map((note) =>
                 note.id === id ? { ...note, content: newContent } : note
