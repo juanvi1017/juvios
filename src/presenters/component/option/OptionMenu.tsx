@@ -27,7 +27,6 @@ export default function Option({
     setIsResizingRight,
     setDragStart,
     dragStart,
-    end,
     setDev,
     dev
 }: Props) {
@@ -40,7 +39,6 @@ export default function Option({
         <>
             {dev && (
                 <Resizable
-                    end={end}
                     dragStart={dragStart}
                     setDragStart={setDragStart}
                     setIsResizingDown={setIsResizingDown}

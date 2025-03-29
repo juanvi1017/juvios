@@ -6,7 +6,7 @@ import Option from '@/presenters/component/option/OptionMenu';
 export default function DefaultLayout({ children }: { children: React.ReactNode }) {
 
   const [dev, setDev] = useState(false)
-  const [dragStart, setDragStart] = useState(null);
+  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
   const [isResizingDown, setIsResizingDown] = useState(false);
   const [isResizingRight, setIsResizingRight] = useState(false);
 
