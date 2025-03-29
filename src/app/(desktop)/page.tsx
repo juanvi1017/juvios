@@ -7,7 +7,7 @@ import TicTacToe from "@/presenters/component/game/TicTacToe";
 import Notepad from "@/presenters/component/notepad/Notepad";
 
 export default function Home() {
-    const [dragStart, setDragStart] = useState(null);
+    const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
     const [isResizingDown, setIsResizingDown] = useState(false);
     const [isResizingRight, setIsResizingRight] = useState(false);
     const [wiki, setWiki] = useState(false)
