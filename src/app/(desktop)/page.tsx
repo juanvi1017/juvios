@@ -37,17 +37,14 @@ export default function Home() {
             style={{ height: 'calc(100vh - 40px)', maxHeight: 'calc(100vh - 40px)' }}
             onClick={() => end()}
         >
-            <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4" >
-                <div className="grid grid-cols-3 gap-4" style={{ marginTop: '50px', marginLeft: '10px' }}>
-                    <div
-                        className="h-20 flex flex-col items-center justify-center"
-                        onClick={() => setWiki(true)}
-                    >
-                        <img src="/wikipedia.png" alt="chrome logo" className="w-25 h-20" />
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-2 gap-4" >
+                <div className="grid lg:grid-cols-3 sm:grid-cols-2 xs:grid-cols-2 gap-4" style={{ marginTop: '50px', marginLeft: '10px' }}>
+                    <div className="h-20 flex flex-col items-center justify-center"onClick={() => setWiki(true)}>
+                        <img src="/wikipedia.png" alt="chrome logo" className="w-20 h-20" />
                         <p className="w-full text-center text-[#fff]">Enciclopedia </p>
                     </div>
                     <div className="h-20 flex flex-col items-center justify-center" onClick={() => setGame(true)}>
-                        <img src="/tictactoe.png" alt="chrome logo" className="w-19 h-25" />
+                        <img src="/tictactoe.png" alt="chrome logo" className="w-20 h-19" />
                         <p className="w-full text-center text-[#fff]">Juego Tic-Tac-Toe</p>
                     </div>
                     <div className="h-20 flex flex-col items-center justify-center" onClick={() => setNote(true)}>

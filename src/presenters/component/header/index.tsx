@@ -1,7 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Header = ({setDev}: {setDev:(arg0: boolean) => void}) => {
+
+const Header = ({ setDev }: { setDev: (arg0: boolean) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [option, setOption] = useState(1);
+
+  const [dateTime, setDateTime] = useState({
+    year: 1,
+    month: 1,
+    day: 1,
+    hours: 1,
+    minutes: 1,
+    seconds: 1,
+  });
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -11,6 +22,23 @@ const Header = ({setDev}: {setDev:(arg0: boolean) => void}) => {
     setDev(true);
     setIsOpen(!isOpen);
   }
+
+  const updateDateTime = () => {
+    const now = new Date();
+    setDateTime({
+      year: now.getFullYear(),
+      month: now.getMonth() + 1, // Los meses en JavaScript van de 0 a 11.
+      day: now.getDate(), // Usa `getDate()` para el día.
+      hours: now.getHours(),
+      minutes: now.getMinutes(),
+      seconds: now.getSeconds(),
+    });
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(updateDateTime, 1000); // Actualiza cada segundo.
+    return () => clearInterval(intervalId); // Limpia el intervalo al desmontar el componente.
+  }, []);
 
   return (
     <header className="sticky top-0 z-999 flex w-full shadow min-h-10 max-h-50 bg-gray-100 dark">
@@ -28,161 +56,102 @@ const Header = ({setDev}: {setDev:(arg0: boolean) => void}) => {
 
             {/* Opciones del menú con transición */}
             <div
-              className={`min-w-80 absolute mt-2 min-h-50 md:w-200 shadow-lg bg-white ring-1 ring-black ring-opacity-5 transform transition-all duration-300 ease-in-out ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"
+              className={`flex absolute ring-opacity-5 transform transition-all duration-300 ease-in-out ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"
                 }`}
             >
-              <div className="p-2 lg:p-8" style={{padding: '15px 0px 0px 10px'}}>
-                <div className="grid gap-y-2 lg:grid-cols-2 lg:gap-x-5">
-                  <a
-                    href="#"
-                    className="group flex flex-col gap-4 rounded-lg p-4 duration-200 hover:bg-gray-1 lg:flex-row dark:hover:bg-white/5"
-                  >
-                    <div className="text-primary">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g clipPath="url(#clip0_2436_4206)">
-                          <path
-                            d="M12 23.325C9.11255 23.325 6.18755 22.2375 3.97505 20.025C1.83755 17.8875 0.675049 15.0375 0.675049 12C0.675049 8.9625 1.83755 6.1125 4.01255 3.975C6.11255 1.8375 8.96255 0.675003 12 0.675003C15.0375 0.675003 17.8876 1.8375 20.025 4.0125C24.4501 8.4375 24.4501 15.6375 20.025 20.0625C17.8125 22.2375 14.8875 23.325 12 23.325ZM7.95005 20.775C10.5 21.9375 13.4625 21.9375 16.05 20.775L12 16.725L7.95005 20.775ZM4.08755 17.55C4.38755 18 4.76255 18.4125 5.17505 18.825C5.58755 19.2375 6.00005 19.575 6.45005 19.9125L10.5375 15.825C10.0125 15.6375 9.52505 15.3 9.11255 14.8875C8.70005 14.475 8.40005 13.9875 8.17505 13.4625L4.08755 17.55ZM13.4625 15.825L17.55 19.9125C18 19.6125 18.4125 19.2375 18.8251 18.825C19.2375 18.4125 19.575 18 19.9125 17.55L15.825 13.4625C15.6375 13.9875 15.3 14.475 14.8875 14.8875C14.475 15.3 13.9875 15.6 13.4625 15.825ZM3.22505 7.95C2.66255 9.1875 2.32505 10.575 2.32505 12C2.32505 13.425 2.62505 14.775 3.22505 16.05L7.27505 12L3.22505 7.95ZM16.725 12L20.775 16.05C21.9375 13.5 21.9375 10.5375 20.775 7.95L16.725 12ZM12 9.6C11.3625 9.6 10.7625 9.8625 10.3125 10.3125C9.86255 10.7625 9.60005 11.3625 9.60005 12C9.60005 12.6375 9.86255 13.2375 10.3125 13.6875C10.7625 14.1375 11.3625 14.4 12 14.4C12.6375 14.4 13.2375 14.1375 13.6875 13.6875C14.1375 13.2375 14.4 12.6375 14.4 12C14.4 11.3625 14.1375 10.7625 13.6875 10.3125C13.2375 9.8625 12.6375 9.6 12 9.6ZM4.08755 6.45L8.17505 10.5375C8.36255 10.0125 8.70005 9.525 9.11255 9.1125C9.52505 8.7 10.0125 8.4 10.5375 8.175L6.45005 4.0875C6.00005 4.3875 5.58755 4.7625 5.17505 5.175C4.76255 5.5875 4.42505 6 4.08755 6.45ZM14.8875 9.1125C15.3 9.525 15.6 10.0125 15.825 10.5375L19.9125 6.45C19.6125 6 19.2375 5.5875 18.8251 5.175C18.4125 4.7625 18 4.425 17.55 4.0875L13.4625 8.175C13.9875 8.4 14.475 8.7 14.8875 9.1125ZM7.95005 3.225L12 7.275L16.05 3.225C14.8125 2.6625 13.425 2.325 12 2.325C10.575 2.325 9.22505 2.6625 7.95005 3.225Z"
-                            fill="currentColor"
-                          />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_2436_4206">
-                            <rect
-                              width="24"
-                              height="24"
-                              fill="white"
-                            />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="mb-1 text-base font-semibold text-dark duration-200 group-hover:text-primary dark:text-white dark:group-hover:text-primary">
-                        Configuraciones
-                      </h3>
-                      <p className="text-sm text-body-color dark:text-dark-6">
-                        Configuraciones del sistema
-                      </p>
-                    </div>
+              <div className="flex flex-col items-center w-16 h-100 py-8 space-y-8 bg-white dark:bg-gray-900 dark:border-gray-700">
+                <p onClick={() => setOption(1)} style={{ marginTop: '30px' }} className={`w-10 h-10 text-purple-700 focus:outline-nones transition-colors duration-200 rounded-lg hover:bg-blue-100 flex flex-col items-center justify-center ${option === 1 ? 'bg-blue-100' : ''}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                  </svg>
+                </p>
+
+                {/* <a href="#" className="p-1.5 text-gray-500 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+                    </svg>
                   </a>
-                  <a
-                    href="#"
-                    className="group flex flex-col gap-4 rounded-lg p-4 duration-200 hover:bg-gray-1 lg:flex-row dark:hover:bg-white/5"
-                  >
-                    <div className="text-primary">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16.35 3.5625H7.65005C3.78755 3.5625 0.675049 6.675 0.675049 10.5375V18.15C0.675049 19.3875 1.68755 20.4 2.92505 20.4H16.3875C20.25 20.4 23.3625 17.2875 23.3625 13.425V10.5375C23.3625 6.7125 20.2125 3.5625 16.35 3.5625ZM21.675 13.4625C21.675 16.3875 19.3125 18.75 16.3875 18.75H2.92505C2.62505 18.75 2.36255 18.4875 2.36255 18.1875V10.5375C2.36255 7.6125 4.72505 5.25 7.65005 5.25H16.3875C19.3125 5.25 21.675 7.6125 21.675 10.5375V13.4625Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M6.48755 12.9375C7.00532 12.9375 7.42505 12.5178 7.42505 12C7.42505 11.4822 7.00532 11.0625 6.48755 11.0625C5.96978 11.0625 5.55005 11.4822 5.55005 12C5.55005 12.5178 5.96978 12.9375 6.48755 12.9375Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M12 12.9375C12.5178 12.9375 12.9375 12.5178 12.9375 12C12.9375 11.4822 12.5178 11.0625 12 11.0625C11.4822 11.0625 11.0625 11.4822 11.0625 12C11.0625 12.5178 11.4822 12.9375 12 12.9375Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M17.5125 12.9375C18.0302 12.9375 18.45 12.5178 18.45 12C18.45 11.4822 18.0302 11.0625 17.5125 11.0625C16.9947 11.0625 16.575 11.4822 16.575 12C16.575 12.5178 16.9947 12.9375 17.5125 12.9375Z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </div>
-                    <div onClick={() => dev()}>
-                      <h3 className="mb-1 text-base font-semibold text-dark duration-200 group-hover:text-primary dark:text-white dark:group-hover:text-primary">
-                        Desarrollador
-                      </h3>
-                      <p className="text-sm text-body-color dark:text-dark-6">
-                        Portafolio del desarrollador
-                      </p>
-                    </div>
-                  </a>
-                  <a
-                    href="#"
-                    className="group flex flex-col gap-4 rounded-lg p-4 duration-200 hover:bg-gray-1 lg:flex-row dark:hover:bg-white/5"
-                  >
-                    <div className="text-primary">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M18.9374 23.3625H7.4999C5.7749 23.3625 4.3124 22.05 4.1249 20.3625C4.1249 20.2875 4.0874 20.25 4.0874 20.175V2.96249C4.0874 1.68749 5.0999 0.674988 6.3749 0.674988H17.5499C18.8249 0.674988 19.8374 1.68749 19.8374 2.96249V16.0125C19.8374 17.2875 18.8249 18.3 17.5499 18.3H7.4999C7.0499 18.3 6.5999 18.4875 6.2999 18.7875C5.9624 19.0875 5.8124 19.5375 5.8124 19.9875C5.8124 20.925 6.5624 21.675 7.4999 21.675H18.9374C19.3874 21.675 19.7999 22.05 19.7999 22.5375C19.7999 23.025 19.4249 23.3625 18.9374 23.3625ZM6.4124 2.36249C6.0749 2.36249 5.8124 2.62499 5.8124 2.96249V17.0625C6.3374 16.7625 6.8999 16.6125 7.4999 16.6125H17.5874C17.9249 16.6125 18.1874 16.35 18.1874 16.0125V2.96249C18.1874 2.62499 17.9249 2.36249 17.5874 2.36249H6.4124Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M14.7 6.6H9.37495C8.92495 6.6 8.51245 6.225 8.51245 5.7375C8.51245 5.25 8.88745 4.875 9.37495 4.875H14.7C15.15 4.875 15.5625 5.25 15.5625 5.7375C15.5625 6.225 15.1875 6.6 14.7 6.6Z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="mb-1 text-base font-semibold text-dark duration-200 group-hover:text-primary dark:text-white dark:group-hover:text-primary">
-                        Read Blog
-                      </h3>
-                      <p className="text-sm text-body-color dark:text-dark-6">
-                        Lorem Ipsum is simply dummy text of the
-                        printing and typesetting industry.
-                      </p>
-                    </div>
-                  </a>
-                  <a
-                    href="#"
-                    className="group flex flex-col gap-4 rounded-lg p-4 duration-200 hover:bg-gray-1 lg:flex-row dark:hover:bg-white/5"
-                  >
-                    <div className="text-primary">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M20.5875 6.22499L15.4125 1.12499C15.1125 0.824988 14.7 0.674988 14.2875 0.674988H5.28755C4.01255 0.674988 2.92505 1.72499 2.92505 3.03749V21.0375C2.92505 22.3125 3.97505 23.4 5.28755 23.4H18.675C19.95 23.4 21.0375 22.35 21.0375 21.0375V7.34999C21.0375 6.93749 20.8876 6.52499 20.5875 6.22499ZM15.45 3.52499L18.2625 6.29999H15.45V3.52499ZM18.7125 21.675H5.28755C4.91255 21.675 4.61255 21.375 4.61255 21V2.99999C4.61255 2.62499 4.91255 2.32499 5.28755 2.32499H13.7625V7.12499C13.7625 7.57499 14.1375 7.98749 14.625 7.98749H19.3876V21C19.35 21.375 19.05 21.675 18.7125 21.675Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M14.5875 10.9125H8.10005C7.65005 10.9125 7.23755 11.2875 7.23755 11.775C7.23755 12.2625 7.61255 12.6375 8.10005 12.6375H14.5875C15.0375 12.6375 15.45 12.2625 15.45 11.775C15.45 11.2875 15.075 10.9125 14.5875 10.9125Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M14.5875 15.0375H8.10005C7.65005 15.0375 7.23755 15.4125 7.23755 15.9C7.23755 16.3875 7.61255 16.7625 8.10005 16.7625H14.5875C15.0375 16.7625 15.45 16.3875 15.45 15.9C15.45 15.4125 15.075 15.0375 14.5875 15.0375Z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="mb-1 text-base font-semibold text-dark duration-200 group-hover:text-primary dark:text-white dark:group-hover:text-primary">
-                        Documentation
-                      </h3>
-                      <p className="text-sm text-body-color dark:text-dark-6">
-                        Lorem Ipsum is simply dummy text of the
-                        printing and typesetting industry.
-                      </p>
-                    </div>
-                  </a>
+
+                  <a href="#" className="p-1.5 text-gray-500 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                    </svg>
+                  </a> */}
+
+                <p onClick={() => setOption(2)} style={{ marginTop: '30px' }} className={`w-10 h-10 text-purple-700 focus:outline-nones transition-colors duration-200 rounded-lg hover:bg-blue-100 flex flex-col items-center justify-center ${option === 2 ? 'bg-blue-100' : ''}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </p>
+
+                <p onClick={() => setOption(3)} style={{ marginTop: '30px' }} className={`w-10 h-10 text-purple-700 focus:outline-nones transition-colors duration-200 rounded-lg hover:bg-blue-100 flex flex-col items-center justify-center ${option === 3 ? 'bg-blue-100' : ''}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                  </svg>
+                </p>
+              </div>
+
+              <div className="h-100 py-8 overflow-y-auto bg-white border-l border-r border-gray-300 w-80">
+                <div className="mt-8 space-y-4">
+                {option === 1 && (
+                     <div className="flex flex-col items-center w-full transition-colors duration-200 gap-x-2 hover:bg-gray-100 focus:outline-none p-2">
+                     <img src="/logo.webp" alt="logo" className="w-full h-60" />
+                     <p className="mt-2 text-center text-purple-700 font-bold ">Juvi OS.</p>
+                   </div>
+                  )}
+                  {option === 2 && (
+                    <button className="flex items-center w-full  transition-colors duration-200 gap-x-2 hover:bg-gray-100 focus:outline-none" style={{ padding: '10px 0px 10px 10px' }}>
+                      <div className="text-left rtl:text-right">
+                        <h1 className="text-gray-900 capitalize">Themes</h1>
+                        <p className="text-gray-500">Configuración de tema</p>
+                      </div>
+                    </button>
+                  )}
+                  {option === 3 && (
+                    <>
+                      <h2 className="px-5 text-lg font-medium text-gray-800" style={{ margin: '10px 0px 0px 10px' }}>System information</h2>
+                      <div className="flex items-center justify-center grid grid-cols-2">
+                        <div className="max-w-sm h-50 w-full overflow-hidden">
+                          <div className="p-5 space-y-4" style={{ margin: '10px 0px 0px 10px' }}>
+                            <div>
+                              <h3 className="font-bold text-gray-900">Edition</h3>
+                            </div>
+                            <div>
+                              <h3 className="font-bold text-gray-900">Version</h3>
+                            </div>
+                            <div>
+                              <h3 className="font-bold text-gray-900">Created by</h3>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="max-w-sm w-full h-50 bg-white overflow-hidden" style={{ paddingTop: '15px' }}>
+                          <div className="p-5 space-y-4">
+                            <div>
+                              <h3 className="text-xs text-gray-900">JuviOS</h3>
+                            </div>
+                            <div>
+                              <h3 className="text-xs text-gray-900" style={{ marginTop: '7px' }}>1.0.0</h3>
+                            </div>
+                            <div onClick={() => dev()}>
+                              <h3 className="text-xs text-gray-900 cursor-pointer" style={{ marginTop: '7px' }}>Ing. Juan Caceres Miranda</h3>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
+
             </div>
           </div>
         </div>
+      </div>
+      <div className="text-white text-right" style={{marginRight: '5px'}}>
+        <p className="text-sm">{dateTime.day}/{dateTime.month}/{dateTime.year}</p>
+        <p className="text-xs">{dateTime.hours}:{dateTime.minutes}:{dateTime.seconds}</p>
       </div>
     </header>
   );
