@@ -55,7 +55,6 @@ export default function Home() {
             </div>
             {wiki && (
                 <Resizable
-                    end={end}
                     dragStart={dragStart}
                     setDragStart={setDragStart}
                     setIsResizingDown={setIsResizingDown}
@@ -75,7 +74,6 @@ export default function Home() {
             )}
             {game && (
                 <Resizable
-                    end={end}
                     dragStart={dragStart}
                     setDragStart={setDragStart}
                     setIsResizingDown={setIsResizingDown}
@@ -91,7 +89,6 @@ export default function Home() {
             )}
             {note && (
                 <Resizable
-                    end={end}
                     dragStart={dragStart}
                     setDragStart={setDragStart}
                     setIsResizingDown={setIsResizingDown}

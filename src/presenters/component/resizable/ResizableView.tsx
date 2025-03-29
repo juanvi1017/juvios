@@ -9,7 +9,6 @@ interface Props {
   setIsResizingRight: (value: boolean) => void;
   dragStart: { x: number; y: number } | null;
   setDragStart: (value: { x: number; y: number } | null) => void;
-  end: () => void;
   value: React.ReactNode;
   close: () => void;
   title: string;
@@ -29,7 +28,6 @@ const ResizableIframe = ({
   dragStart,
   setDragStart,
   value,
-  end,
   close,
   title,
 }: Props) => {
