@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 
-const Header = ({ setDev }: { setDev: (arg0: boolean) => void }) => {
+const Header = ({ setDev, setViewCalendar, viewCalendar }:
+  {
+    setDev: (arg0: boolean) => void,
+    setViewCalendar: (arg0: boolean) => void,
+    viewCalendar: boolean
+  }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [option, setOption] = useState(1);
 
@@ -56,7 +61,7 @@ const Header = ({ setDev }: { setDev: (arg0: boolean) => void }) => {
 
             {/* Opciones del menú con transición */}
             <div
-              className={`flex absolute ring-opacity-5 transform transition-all duration-300 ease-in-out ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"
+              className={`flex absolute ring-opacity-5 ${isOpen ? "animationIni opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"
                 }`}
             >
               <div className="flex flex-col items-center w-16 h-100 py-8 space-y-8 bg-white dark:bg-gray-900 dark:border-gray-700">
@@ -95,11 +100,11 @@ const Header = ({ setDev }: { setDev: (arg0: boolean) => void }) => {
 
               <div className="h-100 py-8 overflow-y-auto bg-white border-l border-r border-gray-300 w-80">
                 <div className="mt-8 space-y-4">
-                {option === 1 && (
-                     <div className="flex flex-col items-center w-full transition-colors duration-200 gap-x-2 hover:bg-gray-100 focus:outline-none p-2">
-                     <img src="/logo.webp" alt="logo" className="w-full h-60" />
-                     <p className="mt-2 text-center text-purple-700 font-bold ">Juvi OS.</p>
-                   </div>
+                  {option === 1 && (
+                    <div className="bg-purple-700 flex flex-col items-center w-full  gap-x-2 focus:outline-none p-2">
+                      <img src="/logo.webp" alt="logo" className="w-full h-60" />
+                      <p className="mt-2 text-center text-white font-bold ">Juvi OS.</p>
+                    </div>
                   )}
                   {option === 2 && (
                     <button className="flex items-center w-full  transition-colors duration-200 gap-x-2 hover:bg-gray-100 focus:outline-none" style={{ padding: '10px 0px 10px 10px' }}>
@@ -111,35 +116,45 @@ const Header = ({ setDev }: { setDev: (arg0: boolean) => void }) => {
                   )}
                   {option === 3 && (
                     <>
-                      <h2 className="px-5 text-lg font-medium text-gray-800" style={{ margin: '10px 0px 0px 10px' }}>System information</h2>
+                      <h1 className="px-5 text-lg text-gray-900" style={{ margin: '10px 0px 0px 10px' }}>System information</h1>
                       <div className="flex items-center justify-center grid grid-cols-2">
                         <div className="max-w-sm h-50 w-full overflow-hidden">
                           <div className="p-5 space-y-4" style={{ margin: '10px 0px 0px 10px' }}>
                             <div>
-                              <h3 className="font-bold text-gray-900">Edition</h3>
+                              <h3 className="px-5 text-gray-900 capitalize">Edition</h3>
                             </div>
                             <div>
-                              <h3 className="font-bold text-gray-900">Version</h3>
+                              <h3 className="px-5 text-gray-900 capitalize">Version</h3>
                             </div>
                             <div>
-                              <h3 className="font-bold text-gray-900">Created by</h3>
+                              <h3 className="px-5 text-gray-900 capitalize">Created by</h3>
                             </div>
                           </div>
                         </div>
                         <div className="max-w-sm w-full h-50 bg-white overflow-hidden" style={{ paddingTop: '15px' }}>
                           <div className="p-5 space-y-4">
                             <div>
-                              <h3 className="text-xs text-gray-900">JuviOS</h3>
+                              <h3 className="text-xs text-gray-500">JuviOS</h3>
                             </div>
                             <div>
-                              <h3 className="text-xs text-gray-900" style={{ marginTop: '7px' }}>1.0.0</h3>
+                              <h3 className="text-xs text-gray-500" style={{ marginTop: '7px' }}>1.0.0</h3>
                             </div>
                             <div onClick={() => dev()}>
-                              <h3 className="text-xs text-gray-900 cursor-pointer" style={{ marginTop: '7px' }}>Ing. Juan Caceres Miranda</h3>
+                              <h3 className="text-xs text-gray-500 cursor-pointer" style={{ marginTop: '7px' }}>Ing. Juan Caceres Miranda</h3>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <div className="max-w-sm w-full h-30 bg-white overflow-hidden">
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="h-30 flex flex-col items-center justify-center">
+                              <img src="/nextjs.png" alt="chrome logo" className="w-full h-25" />
+                            </div>
+                            <div className="h-30 flex flex-col items-center justify-center">
+                              <img src="/tailwind.png" alt="chrome logo" className="w-full h-25" />
+                            </div>
+                          </div>
+                        </div>
                     </>
                   )}
                 </div>
@@ -149,7 +164,7 @@ const Header = ({ setDev }: { setDev: (arg0: boolean) => void }) => {
           </div>
         </div>
       </div>
-      <div className="text-white text-right" style={{marginRight: '5px'}}>
+      <div className="text-white text-right cursor-pointer" style={{ marginRight: '5px' }} onClick={() => setViewCalendar(!viewCalendar)}>
         <p className="text-sm">{dateTime.day}/{dateTime.month}/{dateTime.year}</p>
         <p className="text-xs">{dateTime.hours}:{dateTime.minutes}:{dateTime.seconds}</p>
       </div>

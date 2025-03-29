@@ -13,6 +13,7 @@ export default function Home() {
     const [wiki, setWiki] = useState(false)
     const [game, setGame] = useState(false)
     const [note, setNote] = useState(false)
+    const [vitae, setVitae] = useState(false)
 
 
     const end = () => {
@@ -31,28 +32,36 @@ export default function Home() {
     const noteClose = () => {
         setNote(false)
     }
+    const vitaeClose = () => {
+        setVitae(false)
+    }
 
     return (
         <div className="w-full"
             style={{ height: 'calc(100vh - 40px)', maxHeight: 'calc(100vh - 40px)' }}
             onClick={() => end()}
         >
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-2 gap-4" >
-                <div className="grid lg:grid-cols-3 sm:grid-cols-2 xs:grid-cols-2 gap-4" style={{ marginTop: '50px', marginLeft: '10px' }}>
-                    <div className="h-20 flex flex-col items-center justify-center"onClick={() => setWiki(true)}>
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4" style={{ marginTop: '50px', marginLeft: '10px' }}>
+                    <div className="h-30 flex flex-col items-center justify-center" onClick={() => setWiki(true)}>
                         <img src="/wikipedia.png" alt="chrome logo" className="w-20 h-20" />
-                        <p className="w-full text-center text-[#fff]">Enciclopedia </p>
+                        <p className="w-full text-center text-[#fff]">Enciclopedia</p>
                     </div>
-                    <div className="h-20 flex flex-col items-center justify-center" onClick={() => setGame(true)}>
+                    <div className="h-30 flex flex-col items-center justify-center" onClick={() => setGame(true)}>
                         <img src="/tictactoe.png" alt="chrome logo" className="w-20 h-19" />
-                        <p className="w-full text-center text-[#fff]">Juego Tic-Tac-Toe</p>
+                        <p className="w-full text-center text-[#fff]">Triqui</p>
                     </div>
-                    <div className="h-20 flex flex-col items-center justify-center" onClick={() => setNote(true)}>
+                    <div className="h-30 flex flex-col items-center justify-center" onClick={() => setNote(true)}>
                         <img src="/notas.png" alt="chrome logo" className="w-20 h-20" />
                         <p className="w-full text-center text-[#fff]">Notas</p>
                     </div>
+                    <div className="h-30 flex flex-col items-center justify-center" onClick={() => setVitae(true)}>
+                        <img src="/pdf.webp" alt="chrome logo" className="w-20 h-20" />
+                        <p className="w-full text-center text-[#fff]">Curriculum</p>
+                    </div>
                 </div>
             </div>
+
             {wiki && (
                 <Resizable
                     dragStart={dragStart}
@@ -81,7 +90,7 @@ export default function Home() {
                     setIsResizingRight={setIsResizingRight}
                     isResizingRight={isResizingRight}
                     close={tictactoeClose}
-                    title='Juego TIC-TAC-TOE'
+                    title='Triqui'
                     value={
                         <TicTacToe />
                     }
@@ -96,9 +105,28 @@ export default function Home() {
                     setIsResizingRight={setIsResizingRight}
                     isResizingRight={isResizingRight}
                     close={noteClose}
-                    title='Block de notas'
+                    title='Notas'
                     value={
                         <Notepad />
+                    }
+                />
+            )}
+            {vitae && (
+                <Resizable
+                    dragStart={dragStart}
+                    setDragStart={setDragStart}
+                    setIsResizingDown={setIsResizingDown}
+                    isResizingDown={isResizingDown}
+                    setIsResizingRight={setIsResizingRight}
+                    isResizingRight={isResizingRight}
+                    close={vitaeClose}
+                    title='Curriculum'
+                    value={
+                        <iframe
+                            src="/document/vitae.pdf"
+                            className="w-full h-full bg-white"
+                            title="Curriculum Juan Caceres"
+                        />
                     }
                 />
             )}

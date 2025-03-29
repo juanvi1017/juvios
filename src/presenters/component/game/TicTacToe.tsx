@@ -6,6 +6,7 @@ const TicTacToe = () => {
   const [board, setBoard] = useState<Player[]>(Array(9).fill(null));
   const [isPlayerOneTurn, setIsPlayerOneTurn] = useState(true);
   const [winner, setWinner] = useState<Player>(null);
+  const [tied, setTied] = useState<boolean>(false);
 
   const checkWinner = (newBoard: Player[]) => {
     const winningCombinations = [
@@ -40,7 +41,12 @@ const TicTacToe = () => {
     if (gameWinner) {
       setWinner(gameWinner);
     } else {
-      setIsPlayerOneTurn(!isPlayerOneTurn);
+      // validación si hay más turnos
+      if(newBoard.includes(null)) {
+        setIsPlayerOneTurn(!isPlayerOneTurn);
+      } else {
+        setTied(true)
+      }
     }
   };
 
@@ -48,12 +54,13 @@ const TicTacToe = () => {
     setBoard(Array(9).fill(null));
     setIsPlayerOneTurn(true);
     setWinner(null);
+    setTied(false);
   };
 
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100">
       <h1 className="text-2xl font-bold mb-4">Triqui (Tic-Tac-Toe)</h1>
-      {winner ? (
+      {(winner && !tied) ? (
         <div className="mb-4">
           <h2 className="text-xl font-semibold">¡Ganador: {winner}!</h2>
           <button onClick={resetGame} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded w-full" style={{margin: '10px'}}>
@@ -64,6 +71,14 @@ const TicTacToe = () => {
         <h2 className="text-xl font-semibold mb-4">
           Turno de: {isPlayerOneTurn ? "Jugador 1 (X)" : "Jugador 2 (O)"}
         </h2>
+      )}
+      {tied && (
+        <div className="mb-4">
+          <h2 className="text-xl font-semibold">¡Empate!</h2>
+          <button onClick={resetGame} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded w-full" style={{margin: '10px'}}>
+            Reiniciar
+          </button>
+        </div>
       )}
       <div className="grid grid-cols-3 gap-2">
         {board.map((cell, index) => (
