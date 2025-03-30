@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Resizable from '@/presenters/component/resizable/ResizableView';
 import TicTacToe from "@/presenters/component/game/TicTacToe";
 import Notepad from "@/presenters/component/notepad/Notepad";
+import Calculator from "@/presenters/component/calculator/Calculator";
 
 export default function Home() {
     const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
@@ -14,6 +15,7 @@ export default function Home() {
     const [game, setGame] = useState(false)
     const [note, setNote] = useState(false)
     const [vitae, setVitae] = useState(false)
+    const [calculator, setCalculator] = useState(false)
 
 
     const end = () => {
@@ -36,9 +38,14 @@ export default function Home() {
         setVitae(false)
     }
 
+    const calculatorClose = () => {
+        setCalculator(false)
+    }
+
     return (
         <div className="w-full"
             style={{ height: 'calc(100vh - 40px)', maxHeight: 'calc(100vh - 40px)' }}
+            onMouseOver={() => end()}
             onClick={() => end()}
         >
             <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 gap-4">
@@ -54,6 +61,10 @@ export default function Home() {
                     <div className="h-30 flex flex-col items-center justify-center" onClick={() => setNote(true)}>
                         <img src="/notas.png" alt="chrome logo" className="w-20 h-20" />
                         <p className="w-full text-center text-[#fff]">Notas</p>
+                    </div>
+                    <div className="h-30 flex flex-col items-center justify-center" onClick={() => setCalculator(true)}>
+                        <img src="/calculadora.png" alt="chrome logo" className="w-20 h-20" />
+                        <p className="w-full text-center text-[#fff]">Calculadora</p>
                     </div>
                     <div className="h-30 flex flex-col items-center justify-center" onClick={() => setVitae(true)}>
                         <img src="/pdf.webp" alt="chrome logo" className="w-20 h-20" />
@@ -108,6 +119,21 @@ export default function Home() {
                     title='Notas'
                     value={
                         <Notepad />
+                    }
+                />
+            )}
+            {calculator && (
+                <Resizable
+                    dragStart={dragStart}
+                    setDragStart={setDragStart}
+                    setIsResizingDown={setIsResizingDown}
+                    isResizingDown={isResizingDown}
+                    setIsResizingRight={setIsResizingRight}
+                    isResizingRight={isResizingRight}
+                    close={calculatorClose}
+                    title='Calculadora'
+                    value={
+                        <Calculator />
                     }
                 />
             )}

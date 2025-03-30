@@ -17,8 +17,8 @@ interface Props {
 const isMobile = typeof navigator !== "undefined" && /Android|iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
 const min = isMobile ? 2 : 10;
 const max = isMobile ? 20 : 700;
-const minh = isMobile ? 40 : 80;
-const maxh = isMobile ? 100 : 200;
+const minh = isMobile ? 20 : 80;
+const maxh = isMobile ? 40 : 100;
 
 const ResizableIframe = ({
   isResizingDown,
@@ -32,9 +32,9 @@ const ResizableIframe = ({
   title,
 }: Props) => {
 
-    const [size, setSize] = useState({ width: isMobile ? 300 : 500, height: 500 });
-    const [position, setPosition] = useState({ x: (Math.floor(Math.random() * (max - min + 1)) + min), y: (Math.floor(Math.random() * (maxh - minh + 1)) + minh) });
-
+  const [size, setSize] = useState({ width: isMobile ? 300 : 500, height: 500 });
+  const [position, setPosition] = useState({ x: (Math.floor(Math.random() * (max - min + 1)) + min), y: (Math.floor(Math.random() * (maxh - minh + 1)) + minh) });
+  const [divAux, setDivAux] = useState(false);
 
   // Obtener coordenadas del evento (mouse o toque)
   const getCoordinates = (e: React.MouseEvent | React.TouchEvent) => {
@@ -71,6 +71,7 @@ const ResizableIframe = ({
   // Lógica para manejar el inicio del redimensionamiento
   const handleResizeStart = (direction: "down" | "right", e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
+    setDivAux(true);
     setIsResizingDown(direction === "down");
     setIsResizingRight(direction === "right");
   };
@@ -88,6 +89,7 @@ const ResizableIframe = ({
 
   // Finalizar redimensionamiento/arrastre
   const handleMouseUpOrTouchEnd = () => {
+    setDivAux(false);
     setIsResizingDown(false);
     setIsResizingRight(false);
     setDragStart(null);
@@ -103,7 +105,7 @@ const ResizableIframe = ({
   };
 
   const toggleMinimized = () => {
-    setSize({ width: isMobile ? 300 : 500, height: isMobile ? 500 : 600 });
+    setSize({ width: isMobile ? 300 : 500, height: isMobile ? 400 : 500 });
     setPosition({ x: isMobile ? 20 : 100, y: isMobile ? 50 : 100 });
   };
 
@@ -119,11 +121,11 @@ const ResizableIframe = ({
       onMouseMove={(e) => {
         handleDrag(e);
         handleResize(e);
-    }}
+      }}
       onTouchMove={(e) => {
         handleDrag(e);
         handleResize(e);
-    }}
+      }}
       onMouseUp={handleMouseUpOrTouchEnd}
       onTouchEnd={handleMouseUpOrTouchEnd}
     >
@@ -145,14 +147,24 @@ const ResizableIframe = ({
         </button>
       </div>
       {value}
+      {divAux && (<div className="h-full w-full absolute top-0"
+        onMouseMove={(e) => {
+          handleDrag(e);
+          handleResize(e);
+        }}
+        onTouchMove={(e) => {
+          handleDrag(e);
+          handleResize(e);
+        }}
+      ></div>)}
       {/* Bordes para redimensionar */}
       <div
-        className="absolute top-0 right-0 w-2 h-full cursor-ew-resize"
+        className="absolute top-0 -right-8 w-10 h-full cursor-ew-resize"
         onMouseDown={(e) => handleResizeStart("right", e)}
         onTouchStart={(e) => handleResizeStart("right", e)}
       ></div>
       <div
-        className="absolute -bottom-7 left-0 w-full h-2 cursor-ns-resize"
+        className="absolute -bottom-5 left-0 w-full h-10 cursor-ns-resize"
         onMouseDown={(e) => handleResizeStart("down", e)}
         onTouchStart={(e) => handleResizeStart("down", e)}
       ></div>
