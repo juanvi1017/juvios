@@ -12,6 +12,8 @@ interface Props {
   value: React.ReactNode;
   close: () => void;
   title: string;
+  bg: string;
+  mh: number; //Min Heigth
 }
 
 const isMobile = typeof navigator !== "undefined" && /Android|iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
@@ -30,11 +32,12 @@ const ResizableIframe = ({
   value,
   close,
   title,
+  bg,
+  mh
 }: Props) => {
 
   const [size, setSize] = useState({ width: isMobile ? 300 : 500, height: 500 });
   const [position, setPosition] = useState({ x: (Math.floor(Math.random() * (max - min + 1)) + min), y: (Math.floor(Math.random() * (maxh - minh + 1)) + minh) });
-  const [divAux, setDivAux] = useState(false);
 
   // Obtener coordenadas del evento (mouse o toque)
   const getCoordinates = (e: React.MouseEvent | React.TouchEvent) => {
@@ -71,7 +74,6 @@ const ResizableIframe = ({
   // Lógica para manejar el inicio del redimensionamiento
   const handleResizeStart = (direction: "down" | "right", e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
-    setDivAux(true);
     setIsResizingDown(direction === "down");
     setIsResizingRight(direction === "right");
   };
@@ -80,7 +82,9 @@ const ResizableIframe = ({
   const handleResize = (e: React.MouseEvent | React.TouchEvent) => {
     const { x, y } = getCoordinates(e);
     if (isResizingDown) {
-      setSize((prev) => ({ ...prev, height: Math.max(150, y - position.y) }));
+      if (y >= mh) {
+        setSize((prev) => ({ ...prev, height: Math.max(150, y - position.y) }));
+      }
     }
     if (isResizingRight) {
       setSize((prev) => ({ ...prev, width: Math.max(200, x - position.x) }));
@@ -89,7 +93,6 @@ const ResizableIframe = ({
 
   // Finalizar redimensionamiento/arrastre
   const handleMouseUpOrTouchEnd = () => {
-    setDivAux(false);
     setIsResizingDown(false);
     setIsResizingRight(false);
     setDragStart(null);
@@ -111,7 +114,7 @@ const ResizableIframe = ({
 
   return (
     <div
-      className="absolute bg-gray-100 border border-gray-300 shadow"
+      className={`absolute bg-[${bg}] shadow`}
       style={{
         width: `${size.width}px`,
         height: `${size.height}px`,
@@ -146,17 +149,9 @@ const ResizableIframe = ({
           x
         </button>
       </div>
-      {value}
-      {divAux && (<div className="h-full w-full absolute top-0"
-        onMouseMove={(e) => {
-          handleDrag(e);
-          handleResize(e);
-        }}
-        onTouchMove={(e) => {
-          handleDrag(e);
-          handleResize(e);
-        }}
-      ></div>)}
+      <div className="absolute left-0 h-full w-full">
+        {value}
+      </div>
       {/* Bordes para redimensionar */}
       <div
         className="absolute top-0 -right-8 w-10 h-full cursor-ew-resize"

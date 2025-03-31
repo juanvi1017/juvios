@@ -83,6 +83,8 @@ export default function Home() {
                     isResizingRight={isResizingRight}
                     title='Wikipedia Enciclopedia'
                     close={wikiClose}
+                     bg='#4362fc'
+                    mh={100}
                     value={
                         <iframe
                             src="https://es.wikipedia.org/wiki/Wikipedia:Portada"
@@ -102,6 +104,8 @@ export default function Home() {
                     isResizingRight={isResizingRight}
                     close={tictactoeClose}
                     title='Triqui'
+                    bg='#4362fc'
+                    mh={480}
                     value={
                         <TicTacToe />
                     }
@@ -117,6 +121,8 @@ export default function Home() {
                     isResizingRight={isResizingRight}
                     close={noteClose}
                     title='Notas'
+                    bg='#f6f79f'
+                    mh={430}
                     value={
                         <Notepad />
                     }
@@ -132,6 +138,8 @@ export default function Home() {
                     isResizingRight={isResizingRight}
                     close={calculatorClose}
                     title='Calculadora'
+                    bg='#5d5e5c'
+                    mh={328}
                     value={
                         <Calculator />
                     }
@@ -147,6 +155,8 @@ export default function Home() {
                     isResizingRight={isResizingRight}
                     close={vitaeClose}
                     title='Curriculum'
+                    bg='gray'
+                    mh={100}
                     value={
                         <iframe
                             src="/document/vitae.pdf"

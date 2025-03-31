@@ -47,6 +47,8 @@ export default function Option({
                     isResizingRight={isResizingRight}
                     title='Portafolio'
                     close={devClose}
+                    mh={400}
+                    bg='#810669'
                     value={
                         <iframe
                             src="https://juancaceresm.netlify.app/"

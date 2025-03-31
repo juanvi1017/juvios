@@ -58,7 +58,7 @@ const TicTacToe = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-100">
+    <div className="flex flex-col items-center justify-center">
       <h1 className="text-2xl font-bold mb-4">Triqui (Tic-Tac-Toe)</h1>
       {(winner && !tied) ? (
         <div className="mb-4">

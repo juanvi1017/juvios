@@ -15,8 +15,7 @@ const Header = ({ setDev, setViewCalendar, viewCalendar }:
     month: 1,
     day: 1,
     hours: 1,
-    minutes: 1,
-    seconds: 1,
+    minutes: 1
   });
 
   const toggleMenu = () => {
@@ -35,8 +34,7 @@ const Header = ({ setDev, setViewCalendar, viewCalendar }:
       month: now.getMonth() + 1, // Los meses en JavaScript van de 0 a 11.
       day: now.getDate(), // Usa `getDate()` para el día.
       hours: now.getHours(),
-      minutes: now.getMinutes(),
-      seconds: now.getSeconds(),
+      minutes: now.getMinutes()
     });
   };
 
@@ -166,7 +164,7 @@ const Header = ({ setDev, setViewCalendar, viewCalendar }:
       </div>
       <div className="text-white text-right cursor-pointer" style={{ marginRight: '5px' }} onClick={() => setViewCalendar(!viewCalendar)}>
         <p className="text-sm">{dateTime.day}/{dateTime.month}/{dateTime.year}</p>
-        <p className="text-xs">{dateTime.hours}:{dateTime.minutes}:{dateTime.seconds}</p>
+        <p className="text-xs">{dateTime.hours}:{dateTime.minutes}</p>
       </div>
     </header>
   );
