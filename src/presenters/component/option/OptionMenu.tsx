@@ -48,7 +48,6 @@ export default function Option({
                     title='Portafolio'
                     close={devClose}
                     mh={400}
-                    bg='#810669'
                     value={
                         <iframe
                             src="https://juancaceresm.netlify.app/"

@@ -12,7 +12,6 @@ interface Props {
   value: React.ReactNode;
   close: () => void;
   title: string;
-  bg: string;
   mh: number; //Min Heigth
 }
 
@@ -32,7 +31,6 @@ const ResizableIframe = ({
   value,
   close,
   title,
-  bg,
   mh
 }: Props) => {
 
@@ -114,7 +112,7 @@ const ResizableIframe = ({
 
   return (
     <div
-      className={`absolute bg-[${bg}] shadow`}
+      className={`absolute shadow`}
       style={{
         width: `${size.width}px`,
         height: `${size.height}px`,

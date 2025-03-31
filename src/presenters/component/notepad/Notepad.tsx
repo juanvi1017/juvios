@@ -66,7 +66,7 @@ const Notepad = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center" style={{padding: '10px'}}>
+        <div className="flex flex-col items-center justify-center bg-[#f6f79f] h-full" style={{padding: '10px'}}>
             <h1 className="text-2xl font-bold mb-4">Notas</h1>
             <div className="mb-4 w-full max-w-md">
                 <textarea

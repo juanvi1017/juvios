@@ -50,8 +50,8 @@ const Calculator = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center" style={{padding: '10px'}}>
-            <div className="grid grid-cols-2 gap-2 h-full w-full">
+        <div className="flex flex-col bg-[#5d5e5c] h-full" style={{padding: '10px 10px'}}>
+            <div className="grid grid-cols-2 gap-2 h-1/3 w-full">
                 <div className="display bg-black text-white p-4 rounded text-right text-2xl mb-4" style={{padding: '10px'}}>
                     <div className="p-4 rounded-lg shadow-md">
                         <h3 className="text-lg font-bold mb-2">Historial</h3>
